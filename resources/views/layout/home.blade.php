@@ -101,11 +101,6 @@
                                         <li class="dropdown">
                                             <a href="/">Home</a>
                                         </li>
-
-                                        <li class="dropdown">
-                                            <a href="/about">About</a>
-                                        </li>
-
                                         @php
                                         $categories = App\Models\Category::all();
                                         @endphp
@@ -141,6 +136,10 @@
                                                     </div>
                                                 </li>
                                             </ul>
+                                        </li>
+                                        
+                                        <li class="dropdown">
+                                            <a href="/about">About</a>
                                         </li>
 
                                         <li class="dropdown">
@@ -202,21 +201,6 @@
         <div class="content-wrapper oh">
 
             @yield('content')
-
-            <!-- Newsletter -->
-            <section class="newsletter" id="subscribe">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-sm-12 text-center">
-                            <h4>Follow Us</h4>
-                            <form class="relative newsletter-form">
-                                <input type="email" class="newsletter-input" placeholder="Enter your email">
-                                <input type="submit" class="btn btn-lg btn-dark newsletter-submit" value="Subscribe">
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </section>
 
             <!-- Footer Type-1 -->
             <footer class="footer footer-type-1">

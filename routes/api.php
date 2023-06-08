@@ -23,6 +23,8 @@ Route::group([
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
+Route::post('login_member', [AuthController::class, 'login_member_action_api']);
+
 
 Route::group([
     'middleware' => 'api'

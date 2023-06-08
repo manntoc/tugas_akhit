@@ -115,6 +115,42 @@ class AuthController extends Controller
         }
     }
 
+    public function login_member_action_api(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            Session::flash('errors', $validator->errors()->toArray());
+            return redirect('/login_member');
+        }
+
+        $credentials = $request->only('email', 'password');
+        $member = Member::where('email', $request->email)->first();
+
+        if ($member) {
+            if (Auth::guard('webmember')->attempt($credentials)) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => "Login success",
+                    "user_id" => $member
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 201,
+                    'message' => "Password salah!"
+                ]);
+            }
+        } else {
+            return response()->json([
+                'status' => 404,
+                'message' => "Email Tidak Ditemukan!"
+            ]);
+        }
+    }
+
     public function register_member()
     {
         return view('auth.register_member');
