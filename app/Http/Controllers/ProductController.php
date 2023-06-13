@@ -35,8 +35,8 @@ class ProductController extends Controller
         $products = Product::with('category', 'subcategory')->get();
 
         return response()->json([
-            'data' => $products
-        ]);
+            'data' => $products]
+        );
     }
 
     /**

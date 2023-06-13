@@ -89,7 +89,12 @@ class OrderController extends Controller
         }
 
         $input = $request->all();
-        $Order = Order::create($input);
+        $Order = Order::create([
+            'id' => $input['id'],
+            'id_member' => $input['id_member'],
+            'invoice' => $input['invoice'],
+            'grandtotal' => $input['id_order'],
+        ]);
 
         for ($i = 0; $i < count($input['id_produk']); $i++) {
             OrderDetail::create([

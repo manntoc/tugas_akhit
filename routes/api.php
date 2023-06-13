@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CartsController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\FilesController;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\MemberController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
@@ -24,7 +27,7 @@ Route::group([
 });
 
 Route::post('login_member', [AuthController::class, 'login_member_action_api']);
-
+Route::get('files/{filename}',[FilesController::class,'index']);
 
 Route::group([
     'middleware' => 'api'
@@ -39,7 +42,10 @@ Route::group([
         'reviews' => ReviewController::class,
         'orders' => OrderController::class,
         'payments' => PaymentController::class,
+        'carts' => CartsController::class
     ]);
+
+    Route::get('carts/delete/{id}',[CartsController::class,'hapusCart']);
 
     Route::get('pesanan/baru', [OrderController::class, 'baru']);
     Route::get('pesanan/dikonfirmasi', [OrderController::class, 'dikonfirmasi']);
@@ -51,4 +57,5 @@ Route::group([
     Route::post('pesanan/ubah_status/{order}', [OrderController::class, 'ubah_status']);
 
     Route::get('reports', [ReportController::class, 'get_reports']);
+   
 });

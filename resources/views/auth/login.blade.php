@@ -124,12 +124,13 @@
                         _token : csrf_token
                     },
                     success : function(data){
-                        if (!data.success) {
+                        if (data.success == true) {
+                            localStorage.setItem('token', data.token);
+                            window.location.href = '/dashboard';
+                        }else{
                             alert(data.message)
+                           
                         }
-
-                        localStorage.setItem('token', data.token)
-                        window.location.href = '/dashboard';
 
                     }
                 });

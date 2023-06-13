@@ -27,18 +27,20 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (auth()->attempt($credentials)) {
-            $token = Auth::guard('api')->attempt($credentials);
+            // $token = Auth::guard('api')->attempt($credentials);
             return response()->json([
                 'success' => true,
                 'message' => 'Login Berhasil',
-                'token' => $token
+                // 'token' => $token
+            ]);
+        }else{
+            return response()->json([
+                'success' => false,
+                'message' => 'email atau password salah'
             ]);
         }
 
-        return response()->json([
-            'success' => false,
-            'message' => 'email atau password salah'
-        ]);
+       
     }
 
     protected function respondWithToken($token)
@@ -54,10 +56,10 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'nama_member' => 'required',
-            'provinsi' => 'required',
-            'kabupaten' => 'required',
-            'kecamatan' => 'required',
-            'detail_alamat' => 'required',
+            // 'provinsi' => 'required',
+            // 'kabupaten' => 'required',
+            // 'kecamatan' => 'required',
+            // 'detail_alamat' => 'required',
             'no_hp' => 'required',
             'email' => 'required|email',
             'password' => 'required|same:konfirmasi_password',
@@ -74,11 +76,22 @@ class AuthController extends Controller
         $input = $request->all();
         $input['password'] = bcrypt($request->password);
         unset($input['konfirmasi_password']);
+
         $Member = Member::create($input);
 
-        return response()->json([
-            'data' => $Member
-        ]);
+        if ($Member) {
+            return response()->json([
+                'status' => 201,
+                'message' => 'Akun berhasil dibuat'
+             ]);
+        }else{
+            return response()->json([
+                'status' => 401,
+                'message' => 'Akun gagal dibuat'
+             ]);
+        }
+
+       
     }
 
     public function login_member()
